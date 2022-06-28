@@ -1,0 +1,55 @@
+pipeline {
+    agent 'any'
+    stages {
+        stage ('git clone') {
+            steps {
+                sh '''
+                rm -rf *
+                pwd
+                ls -a -ll
+                git clone https://github.com/Manigowtham789/github-repository.git
+                ls -ll
+                '''
+            }
+        }
+        stage ('compile') {
+            steps {
+                sh '''
+                pwd
+                cd $WORKSPACE
+                ls -ll
+                cd github-repository
+                ls -ll
+                mvn clean
+                mvn compile
+                '''
+            }
+        }
+        stage ('test') {
+            steps {
+                sh '''
+                pwd
+                cd $WORKSPACE
+                ls -ll
+                cd github-repository
+                ls -ll
+                mvn clean
+                mvn test
+                '''
+            }
+        }
+         stage ('package') {
+            steps {
+                sh '''
+                pwd
+                cd $WORKSPACE
+                ls -ll
+                cd github-repository
+                ls -ll
+                mvn clean
+                mvn package
+                '''
+            }
+        }
+    }
+}
